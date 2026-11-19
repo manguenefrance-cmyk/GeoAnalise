@@ -1,0 +1,45 @@
+{
+  "qgis_version": "3.44.8-Solothurn",
+  "checked_at": "2026-11-19T10:43:20.016766+00:00",
+  "mode": "headless PyQGIS independent raster calculator",
+  "tolerance": 1e-05,
+  "cases": [
+    {
+      "index": "NDVI",
+      "valid_pixels_compared": 2572,
+      "max_absolute_error": 5.960464477539063e-08,
+      "cog_crs_grid_mask_round_trip": true,
+      "resolution_m": 10,
+      "alignment": "QGIS-bundled GDAL Warp; explicit common extent, size and CRS; nearest",
+      "passed": true
+    },
+    {
+      "index": "NDWI_MCF",
+      "valid_pixels_compared": 2572,
+      "max_absolute_error": 1.1920928955078125e-07,
+      "cog_crs_grid_mask_round_trip": true,
+      "resolution_m": 10,
+      "alignment": "QGIS-bundled GDAL Warp; explicit common extent, size and CRS; nearest",
+      "passed": true
+    },
+    {
+      "index": "NDBI",
+      "valid_pixels_compared": 643,
+      "max_absolute_error": 8.940696716308594e-08,
+      "cog_crs_grid_mask_round_trip": true,
+      "resolution_m": 20,
+      "alignment": "QGIS-bundled GDAL Warp; explicit common extent, size and CRS; nearest",
+      "passed": true
+    },
+    {
+      "index": "EVI",
+      "valid_pixels_compared": 2572,
+      "max_absolute_error": 2.384185791015625e-07,
+      "cog_crs_grid_mask_round_trip": true,
+      "resolution_m": 10,
+      "alignment": "QGIS-bundled GDAL Warp; explicit common extent, size and CRS; nearest",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

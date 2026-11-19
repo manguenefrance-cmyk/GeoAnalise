@@ -1,0 +1,79 @@
+# First online installation: one host, HTTPS, persistent private volumes, real Firebase auth.
+# Run from the repository root: docker compose --env-file .env.production -f infra/production/compose.yaml up -d --build
+name: arcambe-production
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: arcambe
+      POSTGRES_DB: arcambe
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configure the generated production password}
+    volumes: ["postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U arcambe"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  migrate:
+    build: {context: ../.., dockerfile: infra/python.Dockerfile}
+    environment: &runtime
+      APP_ENV: production
+      DATABASE_URL: postgresql+psycopg://arcambe:${POSTGRES_PASSWORD:?Required}@db:5432/arcambe
+      DATA_DIR: /app/data
+      FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:?Create a Firebase project first}
+      DOWNLOAD_SECRET: ${DOWNLOAD_SECRET:?Generate a random signing secret first}
+      STORAGE_BACKEND: local
+      CORS_ORIGINS: https://${DOMAIN:?Configure a domain with DNS pointing to this host}
+      DAILY_JOB_LIMIT: ${DAILY_JOB_LIMIT:-5}
+      DAILY_ATTEMPT_LIMIT: ${DAILY_ATTEMPT_LIMIT:-20}
+      CONCURRENT_JOB_LIMIT: 1
+      MAX_AOI_KM2: 100
+      MAX_PIXELS: 2000000
+    volumes: ["raster-data:/app/data"]
+    command: ["alembic", "upgrade", "head"]
+    depends_on: {db: {condition: service_healthy}}
+  api:
+    build: {context: ../.., dockerfile: infra/python.Dockerfile}
+    restart: unless-stopped
+    environment: *runtime
+    volumes: ["raster-data:/app/data"]
+    depends_on: {migrate: {condition: service_completed_successfully}}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/readyz')"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+  processor:
+    build: {context: ../.., dockerfile: infra/python.Dockerfile}
+    restart: unless-stopped
+    environment: *runtime
+    volumes: ["raster-data:/app/data"]
+    command: ["python", "-m", "services.api.jobs"]
+    depends_on: {migrate: {condition: service_completed_successfully}}
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/web.Dockerfile
+      args:
+        API_URL: http://api:8000
+        NEXT_PUBLIC_FIREBASE_API_KEY: ${NEXT_PUBLIC_FIREBASE_API_KEY:?Copy the web app config from Firebase}
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN:?Required}
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:?Required}
+    restart: unless-stopped
+    depends_on: {api: {condition: service_healthy}}
+  https:
+    image: caddy:2.10
+    restart: unless-stopped
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment: {DOMAIN: "${DOMAIN:?Required}", ACME_EMAIL: "${ACME_EMAIL:?Required for TLS certificates}"}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [web]
+volumes:
+  postgres:
+  raster-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,23 @@
+{
+  "NDVI": {"title_pt":"Índice de vegetação por diferença normalizada","notes_pt":"Indicador de resposta espectral da vegetação; não identifica espécies nem mede concentrações físicas."},
+  "EVI": {"title_pt":"Índice de vegetação melhorado","notes_pt":"Sensível à calibração e ao denominador. Pode apresentar valores fora de [-1,1]."},
+  "EVI2": {"title_pt":"Índice de vegetação melhorado de duas bandas","notes_pt":"Usa refletâncias calibradas. Não equivale a uma medida direta de biomassa."},
+  "SAVI": {"title_pt":"Índice de vegetação ajustado ao solo","notes_pt":"Usa L=0,5 por defeito. A adequação do parâmetro depende do contexto do solo."},
+  "MSAVI2": {"title_pt":"Índice de vegetação ajustado ao solo modificado","notes_pt":"O domínio da raiz quadrada é verificado; valores inválidos são mascarados."},
+  "GNDVI": {"title_pt":"Índice de vegetação por diferença normalizada com verde","notes_pt":"Indicador espectral; não é uma medição laboratorial de pigmentos."},
+  "NDRE_B05": {"title_pt":"Índice de diferença normalizada red edge, variante B05","notes_pt":"Usa explicitamente B8A e B05, com resolução nativa de 20 m."},
+  "NDMI": {"title_pt":"Índice de humidade por diferença normalizada","notes_pt":"Usa NIR/SWIR, variante de Gao. Distingue-se do NDWI_MCF verde/NIR."},
+  "NDWI_MCF": {"title_pt":"Índice de água por diferença normalizada de McFeeters","notes_pt":"Usa verde/NIR. Não confundir com NDMI, nem interpretar como qualidade da água."},
+  "MNDWI": {"title_pt":"Índice de água por diferença normalizada modificado","notes_pt":"Partilha a fórmula com NDSI_SNOW; a interpretação exige contexto ambiental."},
+  "NDBI": {"title_pt":"Índice de áreas construídas por diferença normalizada","notes_pt":"Usa SWIR/NIR a 20 m; não é uma classificação urbana validada."},
+  "NBR": {"title_pt":"Razão de queimada normalizada","notes_pt":"Um índice isolado não estabelece uma classe de severidade de incêndio validada."},
+  "NBR2": {"title_pt":"Razão de queimada normalizada 2","notes_pt":"Usa B11 e B12; a interpretação exige contexto e calibração local."},
+  "BSI": {"title_pt":"Índice de solo exposto","notes_pt":"Variante SWIR/vermelho/NIR/azul. Não determina salinidade nem composição do solo."},
+  "NDSI_SNOW": {"title_pt":"Índice de neve por diferença normalizada","notes_pt":"Partilha a fórmula com MNDWI. A interpretação como neve exige contexto e máscaras."},
+  "MSI": {"title_pt":"Índice de stress hídrico","notes_pt":"Razão SWIR/NIR, sem limitação global a [-1,1]. É um indicador indireto."},
+  "ARVI": {"title_pt":"Índice de vegetação resistente à atmosfera","notes_pt":"Variante com gama=1. A correção atmosférica e a estabilidade do denominador continuam relevantes."},
+  "VARI": {"title_pt":"Índice resistente à atmosfera na região visível","notes_pt":"Usa bandas visíveis e pode tornar-se instável quando o denominador se aproxima de zero."},
+  "SIPI": {"title_pt":"Índice de pigmentos insensível à estrutura","notes_pt":"Instável quando NIR-vermelho se aproxima de zero; esses píxeis são mascarados."},
+  "CI_GREEN": {"title_pt":"Índice de clorofila com banda verde","notes_pt":"Indicador indireto da resposta espectral de pigmentos, não uma concentração laboratorial."},
+  "CI_RE": {"title_pt":"Índice de clorofila red edge","notes_pt":"Usa B8A/B05 a 20 m; não corresponde a uma medição direta da concentração de clorofila."}
+}

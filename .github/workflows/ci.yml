@@ -1,0 +1,59 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13', cache: pip}
+      - run: pip install -r requirements.lock.txt
+      - run: ruff check services tests scripts
+      - run: pytest -q --junitxml=pytest-results.xml
+      - run: APP_ENV=test DATABASE_URL=sqlite:///./data/migration.db python -m alembic upgrade head
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: python-test-results, path: pytest-results.xml}
+  web:
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: apps/web}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: apps/web/package-lock.json}
+      - run: npm ci --no-fund --no-audit
+      - run: npm run build
+      - run: npm run typecheck
+  postgis:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:17-3.5
+        env: {POSTGRES_USER: arcambe, POSTGRES_PASSWORD: test-only, POSTGRES_DB: arcambe}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U arcambe" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - run: pip install -r requirements.lock.txt
+      - run: alembic upgrade head
+        env: {APP_ENV: test, DATABASE_URL: 'postgresql+psycopg://arcambe:test-only@localhost:5432/arcambe'}
+      - run: python scripts/postgis-smoke.py
+        env: {APP_ENV: test, DATABASE_URL: 'postgresql+psycopg://arcambe:test-only@localhost:5432/arcambe'}
+  production-containers:
+    runs-on: ubuntu-latest
+    env:
+      DOMAIN: geo.example.com
+      ACME_EMAIL: ci@example.com
+      POSTGRES_PASSWORD: ci-only-password
+      DOWNLOAD_SECRET: ci-only-download-secret-32-characters
+      FIREBASE_PROJECT_ID: ci-arcambe
+      NEXT_PUBLIC_FIREBASE_API_KEY: ci-public-placeholder
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ci-arcambe.firebaseapp.com
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f infra/production/compose.yaml config --quiet
+      - run: docker compose -f infra/production/compose.yaml build

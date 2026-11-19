@@ -1,0 +1,545 @@
+openapi: 3.1.0
+info:
+  title: ARCAMBE GeoAnalytics API
+  version: 1.0.0
+  description: Contract starting point; actual FastAPI spec generated from Pydantic
+    models must enrich full paths and schemas.
+servers:
+- url: /v1
+components:
+  securitySchemes:
+    FirebaseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            request_id:
+              type: string
+    ProjectCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 180
+        description:
+          type: string
+          maxLength: 2000
+    AreaCreate:
+      type: object
+      required:
+      - name
+      - geometry
+      properties:
+        name:
+          type: string
+        geometry:
+          type: object
+          description: GeoJSON Polygon or MultiPolygon EPSG:4326; validated server
+            side
+    SceneSearch:
+      type: object
+      required:
+      - aoi_id
+      - date_start
+      - date_end
+      properties:
+        aoi_id:
+          type: string
+          format: uuid
+        date_start:
+          type: string
+          format: date
+        date_end:
+          type: string
+          format: date
+        max_cloud_cover:
+          type: number
+          minimum: 0
+          maximum: 100
+          default: 20
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+    AnalysisCreate:
+      type: object
+      required:
+      - project_id
+      - aoi_id
+      - operation_kind
+      - operation_id
+      properties:
+        project_id:
+          type: string
+          format: uuid
+        aoi_id:
+          type: string
+          format: uuid
+        scene_id:
+          type: string
+          format: uuid
+        operation_kind:
+          type: string
+          enum:
+          - index
+          - band_ratio
+          - temporal_diff
+          - pca
+          - composite
+        operation_id:
+          type: string
+        input_analysis_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+        params:
+          type: object
+security:
+- FirebaseBearer: []
+paths:
+  /me:
+    get:
+      summary: Get own profile
+      operationId: get_me
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+    patch:
+      summary: Update own profile
+      operationId: patch_me
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+  /projects:
+    get:
+      summary: List authorized projects
+      operationId: get_projects
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+    post:
+      summary: Create project
+      operationId: post_projects
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreate'
+  /projects/{project_id}:
+    get:
+      summary: Get authorized project
+      operationId: get_projects_project_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    patch:
+      summary: Edit project
+      operationId: patch_projects_project_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      summary: Delete project
+      operationId: delete_projects_project_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /projects/{project_id}/aois:
+    get:
+      summary: List AOIs
+      operationId: get_projects_project_id_aois
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      summary: Create AOI
+      operationId: post_projects_project_id_aois
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AreaCreate'
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /aois/{aoi_id}:
+    get:
+      summary: Get AOI
+      operationId: get_aois_aoi_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: aoi_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      summary: Delete AOI
+      operationId: delete_aois_aoi_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: aoi_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /satellite/search:
+    post:
+      summary: Find Sentinel-2 scenes
+      operationId: post_satellite_search
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SceneSearch'
+  /indices:
+    get:
+      summary: List spectral index registry
+      operationId: get_indices
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+  /analyses:
+    get:
+      summary: List analyses
+      operationId: get_analyses
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+    post:
+      summary: Queue analysis
+      operationId: post_analyses
+      responses:
+        '202':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalysisCreate'
+  /analyses/{analysis_id}:
+    get:
+      summary: Get analysis
+      operationId: get_analyses_analysis_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: analysis_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /jobs/{job_id}:
+    get:
+      summary: Get processing job
+      operationId: get_jobs_job_id
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /jobs/{job_id}/cancel:
+    post:
+      summary: Cancel job best effort
+      operationId: post_jobs_job_id_cancel
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /analyses/{analysis_id}/exports:
+    post:
+      summary: Request export
+      operationId: post_analyses_analysis_id_exports
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: analysis_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /exports:
+    get:
+      summary: List exports
+      operationId: get_exports
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+  /artifacts/{artifact_id}/download:
+    get:
+      summary: Signed download link
+      operationId: get_artifacts_artifact_id_download
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded
+      parameters:
+      - name: artifact_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /usage:
+    get:
+      summary: Get own usage
+      operationId: get_usage
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Forbidden
+        '429':
+          description: Limit exceeded

@@ -1,0 +1,17 @@
+{
+  "version": "0.3.0",
+  "date": "2026-11-19",
+  "python_tests_passed": 161,
+  "ruff": "passed",
+  "typescript": "passed",
+  "next_build": "passed",
+  "landsat_real_ui_api_worker": "succeeded",
+  "landsat_valid_pixels": 304,
+  "landsat_resolution_m": 30,
+  "compose_config": "passed",
+  "containers_run": false,
+  "github_published": false,
+  "cloud_deployed": false,
+  "mobile_dom_width": 360,
+  "mobile_scroll_width": 360
+}

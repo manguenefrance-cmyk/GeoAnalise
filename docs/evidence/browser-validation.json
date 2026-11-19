@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-19",
+  "manual_browser_checks": {
+    "desktop": {
+      "width": 1440,
+      "height": 1000,
+      "no_horizontal_overflow": true
+    },
+    "mobile": {
+      "width": 360,
+      "height": 800,
+      "no_horizontal_overflow": true,
+      "inspector_opens": true
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "sample_ndwi_job_succeeded": true,
+    "real_ndvi_result_displayed": true,
+    "download": "browser-download.json"
+  },
+  "screenshots": [
+    "workspace-desktop.jpg",
+    "workspace-mobile.jpg"
+  ]
+}

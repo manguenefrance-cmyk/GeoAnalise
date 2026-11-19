@@ -1,0 +1,266 @@
+{
+  "id": "82460832-5d72-40bc-9d85-6f1c409fa3e0",
+  "operation_kind": "index",
+  "operation_id": "NDVI",
+  "status": "succeeded",
+  "provenance": {
+    "sensor": "landsat-8-9",
+    "platform": "landsat-9",
+    "scene_id": "LC09_L2SP_167078_20261019_02_T1",
+    "collection": "landsat-c2-l2",
+    "acquired_at": "2026-10-19T07:43:54.652457Z",
+    "processing_baseline": null,
+    "sample": false,
+    "sources": {
+      "B08": {
+        "asset": "https://landsateuwest.blob.core.windows.net/landsat-c2/level-2/standard/oli-tirs/2026/167/078/LC09_L2SP_167078_20261019_20261021_02_T1/LC09_L2SP_167078_20261019_20261021_02_T1_SR_B5.TIF",
+        "scale": 2.75e-05,
+        "offset": -0.2,
+        "pipeline": "stac_scale_offset_once",
+        "native_resolution_m": 30,
+        "native_band": "SR_B5"
+      },
+      "B04": {
+        "asset": "https://landsateuwest.blob.core.windows.net/landsat-c2/level-2/standard/oli-tirs/2026/167/078/LC09_L2SP_167078_20261019_20261021_02_T1/LC09_L2SP_167078_20261019_20261021_02_T1_SR_B4.TIF",
+        "scale": 2.75e-05,
+        "offset": -0.2,
+        "pipeline": "stac_scale_offset_once",
+        "native_resolution_m": 30,
+        "native_band": "SR_B4"
+      }
+    },
+    "scene_cloud_cover": 0.0,
+    "crs": "EPSG:32736",
+    "transform": [
+      30.0,
+      0.0,
+      456930.0,
+      0.0,
+      -30.0,
+      7130340.0
+    ],
+    "width": 18,
+    "height": 19,
+    "bounds": [
+      456930,
+      7129770,
+      457470,
+      7130340
+    ],
+    "resolution_m": 30,
+    "interpolation": "bilinear",
+    "scl_resampling": null,
+    "mask_scl": [],
+    "qa_resampling": "nearest",
+    "qa_pixel_mask_bits": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "qa_radsat_mask_bits": [
+      3,
+      4,
+      11
+    ],
+    "cloud_dilation_m": 0.0,
+    "finer_interpolation": false,
+    "license": "USGS Landsat public domain; check provider terms",
+    "analysis_id": "82460832-5d72-40bc-9d85-6f1c409fa3e0",
+    "operation_kind": "index",
+    "operation_id": "NDVI",
+    "algorithm_version": "1.0.0",
+    "software_version": "0.3.0",
+    "rasterio_version": "1.5.2",
+    "numpy_version": "2.5.5",
+    "generated_at": "2026-11-19T16:07:49.138587+00:00",
+    "area_km2": 0.27741714178967475,
+    "warnings": [],
+    "statistics": {
+      "count": 304,
+      "valid_fraction": 1.0,
+      "masked_fraction": 0.0,
+      "min": 0.08968007564544678,
+      "max": 0.3341515362262726,
+      "mean": 0.17156390845775604,
+      "median": 0.16261976957321167,
+      "std": 0.04004219174385071,
+      "percentiles": [
+        0.11176283031702042,
+        0.14516380429267883,
+        0.19121568277478218,
+        0.28168915867805483
+      ],
+      "histogram": {
+        "counts": [
+          2,
+          3,
+          10,
+          14,
+          32,
+          38,
+          49,
+          26,
+          26,
+          28,
+          22,
+          13,
+          13,
+          3,
+          8,
+          1,
+          4,
+          2,
+          4,
+          1,
+          2,
+          1,
+          1,
+          1
+        ],
+        "edges": [
+          0.08968007564544678,
+          0.09986639022827148,
+          0.1100526973605156,
+          0.1202390044927597,
+          0.1304253190755844,
+          0.14061163365840912,
+          0.15079793334007263,
+          0.16098424792289734,
+          0.17117056250572205,
+          0.18135687708854675,
+          0.19154319167137146,
+          0.20172949135303497,
+          0.21191580593585968,
+          0.2221021205186844,
+          0.2322884202003479,
+          0.2424747347831726,
+          0.2526610493659973,
+          0.262847363948822,
+          0.27303367853164673,
+          0.28321999311447144,
+          0.29340630769729614,
+          0.30359262228012085,
+          0.31377890706062317,
+          0.3239652216434479,
+          0.3341515362262726
+        ]
+      }
+    },
+    "model": {
+      "formula": "(SR_B5-SR_B4)/(SR_B5+SR_B4)",
+      "constants": {}
+    },
+    "denominator_epsilon": 1e-06
+  },
+  "stats": {
+    "count": 304,
+    "valid_fraction": 1.0,
+    "masked_fraction": 0.0,
+    "min": 0.08968007564544678,
+    "max": 0.3341515362262726,
+    "mean": 0.17156390845775604,
+    "median": 0.16261976957321167,
+    "std": 0.04004219174385071,
+    "percentiles": [
+      0.11176283031702042,
+      0.14516380429267883,
+      0.19121568277478218,
+      0.28168915867805483
+    ],
+    "histogram": {
+      "counts": [
+        2,
+        3,
+        10,
+        14,
+        32,
+        38,
+        49,
+        26,
+        26,
+        28,
+        22,
+        13,
+        13,
+        3,
+        8,
+        1,
+        4,
+        2,
+        4,
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "edges": [
+        0.08968007564544678,
+        0.09986639022827148,
+        0.1100526973605156,
+        0.1202390044927597,
+        0.1304253190755844,
+        0.14061163365840912,
+        0.15079793334007263,
+        0.16098424792289734,
+        0.17117056250572205,
+        0.18135687708854675,
+        0.19154319167137146,
+        0.20172949135303497,
+        0.21191580593585968,
+        0.2221021205186844,
+        0.2322884202003479,
+        0.2424747347831726,
+        0.2526610493659973,
+        0.262847363948822,
+        0.27303367853164673,
+        0.28321999311447144,
+        0.29340630769729614,
+        0.30359262228012085,
+        0.31377890706062317,
+        0.3239652216434479,
+        0.3341515362262726
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "artifact_type": "cog",
+      "bytes": 2554,
+      "checksum": "d2eb4ec82f6369f7408f1897b6a72d587e83eccd3688f102f130afb974f3671f"
+    },
+    {
+      "artifact_type": "json",
+      "bytes": 3690,
+      "checksum": "7764bebb9efbdecab7c9cdc564f4f49ccb1c032d3a40b11c1e4789ca31955916"
+    },
+    {
+      "artifact_type": "preview",
+      "bytes": 1049,
+      "checksum": "24d641f7d00641b2ddf355b79714a88dd471abe42670a97aaac872e2de15dddb"
+    },
+    {
+      "artifact_type": "png-en",
+      "bytes": 34084,
+      "checksum": "1705994c6690129f421cd4cf8cf58d0484e3a26ee3b1695f759fe745e1a54fcb"
+    },
+    {
+      "artifact_type": "pdf-en",
+      "bytes": 40717,
+      "checksum": "7511219d875666c3f42168d56fb3a055876d78c49c57983d3074ac797abe9828"
+    },
+    {
+      "artifact_type": "png-pt",
+      "bytes": 33597,
+      "checksum": "f795b7686429932e782740a83cb555d253ca6bde1b10c0ea2930fcf42934bbe4"
+    },
+    {
+      "artifact_type": "pdf-pt",
+      "bytes": 40367,
+      "checksum": "25357c6b4305a7072b4e756ba0135d82061e4a891a6ea01abe3d192aaaa561e9"
+    }
+  ]
+}

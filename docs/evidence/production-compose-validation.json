@@ -1,0 +1,19 @@
+{
+  "compose_version": "5.8.0",
+  "config_valid": true,
+  "services": [
+    "api",
+    "db",
+    "https",
+    "migrate",
+    "processor",
+    "web"
+  ],
+  "public_ports": [
+    80,
+    443
+  ],
+  "app_env": "production",
+  "secrets_in_evidence": false,
+  "containers_built_or_run": false
+}

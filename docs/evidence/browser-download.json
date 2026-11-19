@@ -1,0 +1,9 @@
+{
+  "filename": "ARCAMBE-NDVI-result.tif",
+  "checksum_matches_authenticated_artifact": true,
+  "sha256": "fef3201f59eb2fc8179af1c9f37972eaad6da9d6158cc3ea27b740dba0dd592b",
+  "crs": "EPSG:32736",
+  "width": 51,
+  "height": 56,
+  "cog_layout": "COG"
+}
