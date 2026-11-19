@@ -10,8 +10,9 @@
   "landsat_resolution_m": 30,
   "compose_config": "passed",
   "containers_run": false,
-  "github_published": false,
+  "github_published": true,
   "cloud_deployed": false,
   "mobile_dom_width": 360,
-  "mobile_scroll_width": 360
+  "mobile_scroll_width": 360,
+  "github_repository": "https://github.com/manguenefrance-cmyk/GeoAnalise"
 }

@@ -1,6 +1,6 @@
 # Colocar ARCAMBE GeoAnalytics online
 
-Estado: configuração de produção preparada, **ainda não publicada**. Não existe projeto Google Cloud/Firebase configurado nesta entrega. Não foi criado nenhum recurso pago.
+Estado: código publicado em [GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), configuração de produção preparada, **aplicação ainda não alojada online**. Não existe projeto Google Cloud/Firebase configurado nesta entrega. Não foi criado nenhum recurso pago.
 
 ## O que o proprietário precisa de criar
 
@@ -30,7 +30,9 @@ O servidor pode ser uma VM Google Compute Engine com disco persistente e conta d
 Depois de disponibilizar servidor, domínio e acesso ao repositório privado:
 
 ```bash
-# Na pasta do código, no servidor Linux com Docker e plugin Compose instalados:
+# No servidor Linux com Git, Python, Docker e plugin Compose instalados:
+git clone https://github.com/manguenefrance-cmyk/GeoAnalise.git
+cd GeoAnalise
 python3 scripts/configure-production.py
 docker compose --env-file .env.production -f infra/production/compose.yaml config --quiet
 docker compose --env-file .env.production -f infra/production/compose.yaml up -d --build

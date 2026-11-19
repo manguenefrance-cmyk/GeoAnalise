@@ -6,8 +6,8 @@
 - Sentinel-2 por padrão; Landsat 8/9 C2 L2 opcional com catálogo de 19 índices, resolução 30 m, bandas nativas, calibração STAC e QA_PIXEL/QA_RADSAT. O processamento interno reutiliza chaves semânticas do catálogo original; a interface e a proveniência identificam as bandas OLI reais. Não há substituição artificial de bandas red-edge.
 - 161 testes Python passaram. Ruff, tipos TypeScript gerados e build Next.js passaram.
 - NDVI real Landsat 9, cena LC09_L2SP_167078_20261019_02_T1, Maputo: 304 pixels válidos, 30 m, EPSG:32736, média 0,1715639. Evidência em `evidence/landsat-live-pixels.json`. Este recorte não valida todos os produtos e condições de aquisição.
-- Configuração de produção em `infra/production/compose.yaml`: HTTPS, Firebase real e volumes privados. Verificada com Docker Compose 5.8.0; contentores não foram construídos nem executados localmente, pois não existe Docker Engine. CI inclui a construção das imagens quando o código for publicado.
-- Conta GitHub ligada e acesso aos repositórios confirmado. O conector não disponibiliza criação de repositórios; o navegador exige login. Ainda não existe publicação deste código num repositório GitHub confirmado.
+- Configuração de produção em `infra/production/compose.yaml`: HTTPS, Firebase real e volumes privados. Verificada com Docker Compose 5.8.0; contentores não foram construídos nem executados localmente, pois não existe Docker Engine. O workflow GitHub Actions inclui construção e arranque dos contentores, verificação do proxy Web/API e recusa de tokens locais em produção.
+- Código publicado na branch `main` de [manguenefrance-cmyk/GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), repositório público indicado pelo proprietário. Credenciais e dados de execução locais ficaram excluídos. Os resultados da validação GitHub Actions serão registados após conclusão.
 - Não existe projeto cloud/Firebase configurado, domínio de produção ou alojamento ativo. Nenhum recurso pago foi criado. Passos concretos em `COLOCAR_ONLINE.pt.md`.
 
 As secções seguintes conservam as evidências da base 0.2.0; as limitações cloud mantêm-se até a instalação ser validada.
