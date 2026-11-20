@@ -1,13 +1,13 @@
-# Release evidence — 19 November 2026
+# Release evidence — 20 November 2026
 
-Status: **working local implementation; production deployment not validated**.
+Status: **source published; Linux production container integration verified; live production deployment pending**.
 
 ## Verified
 
-- [x] 134 automated Python tests pass, including 63 supplied numerical vectors for all 21 indices. Evidence: `docs/evidence/pytest-results.xml`.
+- [x] 161 automated Python tests pass, including 63 supplied numerical vectors for all 21 Sentinel indices and Landsat-specific tests. Evidence: `docs/evidence/github-ci-validation.json` and linked GitHub Actions logs.
 - [x] Every index runs over real GeoTIFF fixtures and survives COG reopening with CRS/masks/Float32 preserved.
 - [x] Calibration pre/post baseline offsets, normalized inputs, negative reflectance and double-scaling refusal.
-- [x] Native 10/20/60 m grids, complete/partial cloud masks, invalid geometry, safe ZIP import, approved asset resolution.
+- [x] Native Sentinel 10/20/60 m and Landsat 30 m grids, complete/partial cloud masks, invalid geometry, safe ZIP import, approved asset resolution.
 - [x] Ratio, temporal difference, PCA (independent sklearn comparison), RGB/FCC.
 - [x] Persistent queue, idempotency, cancellation, refunds, concurrent quota contention, tenant/role isolation, signed capability expiry.
 - [x] Python Ruff checks and frontend TypeScript check pass.
@@ -19,9 +19,11 @@ Status: **working local implementation; production deployment not validated**.
 - [x] Actual PNG map inspected after fixing map scaling and font rendering. Local products: `data/live-smoke/`.
 - [x] Browser: test login, sample seeding, index execution and statistics verified. Real-scene search and execution initiated from the interface and persisted in the database.
 
+- [x] Landsat 8/9 C2 L2: 19 compatible indices, STAC calibration, QA_PIXEL/QA_RADSAT, expiring SAS refresh and refusal of cross-sensor temporal comparison. Real NDVI yielded 304 valid pixels at 30 m; evidence in `docs/evidence/landsat-live-pixels.json` and `landsat-api-job.json`.
+
 ## Remaining release gates
 
-- [ ] Docker/PostGIS/container integration executed: Docker is absent on this host; CI configuration is provided but has not run remotely.
+- [x] GitHub Actions Linux: Docker builds, PostGIS migration/spatial index, production stack startup, Web/API proxy and refusal of local test tokens. Evidence: [successful run](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44691447342). Docker remains absent on the Windows development host.
 - [ ] Real Firebase registration, reset, verification and revocation lifecycle validated with configured credentials.
 - [x] Private GCS adapter, immutable uploads, bounded signing and failure/cancellation cleanup implemented and tested offline.
 - [ ] Live GCS validation and Cloud Tasks/Cloud Run Jobs dispatch. Terraform remains a provisioning reference.

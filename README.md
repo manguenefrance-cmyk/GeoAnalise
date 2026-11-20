@@ -1,5 +1,7 @@
 # ARCAMBE GeoAnalytics
 
+[![Verify](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/workflows/ci.yml/badge.svg)](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/workflows/ci.yml)
+
 Repositório de desenvolvimento: [manguenefrance-cmyk/GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise).
 
 Aplicação WebGIS em Next.js/TypeScript, API FastAPI e processamento Rasterio/NumPy. Implementação iniciada a partir do pacote de especificações v1 de 17 de novembro de 2026. O original está preservado em `ARCAMBE_GeoAnalytics_Codex/`.
@@ -112,3 +114,9 @@ A marca utiliza o logótipo original ARCAMBE e o nome de produto GeoAnalytics. C
 Para preparar a conta Firebase/Google Cloud e o primeiro alojamento HTTPS, siga [Colocar online](docs/COLOCAR_ONLINE.pt.md). Existe uma configuração de produção separada em `infra/production/compose.yaml`. A aplicação continua local até existir alojamento configurado; nenhum serviço pago foi criado.
 
 Validação da versão 0.3.0: 161 testes Python, Ruff, TypeScript e build Next.js aprovados; NDVI Landsat real executado pela interface, API e worker. A configuração de produção passou em `docker compose config`, sem execução de contentores neste computador.
+
+## Publicação no GitHub e contentores — 20 de novembro de 2026
+
+Código publicado neste repositório. Os quatro controlos do [GitHub Actions](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44691447342) passaram: 161 testes Python, frontend, PostGIS e contentores de produção. A verificação dos contentores confirmou arranque, comunicação Web/API, base de dados disponível e recusa de tokens locais de teste em modo de produção.
+
+A imagem Python inclui `libexpat1` e verifica a importação das dependências raster durante a construção. Evidência: `docs/evidence/github-ci-validation.json`. A aplicação ainda não está alojada num servidor público; faltam projeto Firebase/Google Cloud, domínio e orçamento de alojamento. O login Firebase real e o certificado HTTPS público continuam por validar.

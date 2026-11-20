@@ -1,6 +1,6 @@
 {
   "version": "0.3.0",
-  "date": "2026-11-19",
+  "date": "2026-11-20",
   "python_tests_passed": 161,
   "ruff": "passed",
   "typescript": "passed",
@@ -9,10 +9,14 @@
   "landsat_valid_pixels": 304,
   "landsat_resolution_m": 30,
   "compose_config": "passed",
-  "containers_run": false,
+  "containers_run": true,
   "github_published": true,
   "cloud_deployed": false,
   "mobile_dom_width": 360,
   "mobile_scroll_width": 360,
-  "github_repository": "https://github.com/manguenefrance-cmyk/GeoAnalise"
+  "github_repository": "https://github.com/manguenefrance-cmyk/GeoAnalise",
+  "containers_run_location": "GitHub Actions Linux",
+  "containers_run_locally": false,
+  "github_actions": "https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44691447342",
+  "browser_validation_date": "2026-11-19"
 }

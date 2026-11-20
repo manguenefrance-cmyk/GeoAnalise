@@ -7,10 +7,16 @@
 - 161 testes Python passaram. Ruff, tipos TypeScript gerados e build Next.js passaram.
 - NDVI real Landsat 9, cena LC09_L2SP_167078_20261019_02_T1, Maputo: 304 pixels válidos, 30 m, EPSG:32736, média 0,1715639. Evidência em `evidence/landsat-live-pixels.json`. Este recorte não valida todos os produtos e condições de aquisição.
 - Configuração de produção em `infra/production/compose.yaml`: HTTPS, Firebase real e volumes privados. Verificada com Docker Compose 5.8.0; contentores não foram construídos nem executados localmente, pois não existe Docker Engine. O workflow GitHub Actions inclui construção e arranque dos contentores, verificação do proxy Web/API e recusa de tokens locais em produção.
-- Código publicado na branch `main` de [manguenefrance-cmyk/GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), repositório público indicado pelo proprietário. Credenciais e dados de execução locais ficaram excluídos. Os resultados da validação GitHub Actions serão registados após conclusão.
+- Código publicado na branch `main` de [manguenefrance-cmyk/GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), repositório público indicado pelo proprietário. Credenciais e dados de execução locais ficaram excluídos. Os quatro controlos GitHub Actions passaram; evidência em `evidence/github-ci-validation.json`.
 - Não existe projeto cloud/Firebase configurado, domínio de produção ou alojamento ativo. Nenhum recurso pago foi criado. Passos concretos em `COLOCAR_ONLINE.pt.md`.
 
 As secções seguintes conservam as evidências da base 0.2.0; as limitações cloud mantêm-se até a instalação ser validada.
+
+## Verificação GitHub — 20 de novembro de 2026
+
+[Execução 44691447342](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44691447342), código `e160ccd67ffe583f8d5a2edbdc4694ebcd16b135`: Python (161 testes), frontend, PostGIS e contentores passaram. A API, o worker e a interface arrancaram com PostgreSQL/PostGIS em modo `production`. A verificação confirmou proxy Web/API, disponibilidade da base de dados e recusa de autenticação ausente e tokens `test:*`.
+
+O primeiro teste de arranque detetou `libexpat.so.1` em falta. A imagem Python passou a instalar `libexpat1` e a verificar as importações raster durante a construção. O teste passou depois da correção. O certificado HTTPS público e o login Firebase real não foram exercitados com o domínio/projeto do proprietário; a aplicação continua sem alojamento cloud.
 
 ## O que foi desenvolvido
 
@@ -41,7 +47,7 @@ O comando `docker compose up --build` está preparado, mas não foi executado po
 
 ## Pendências explícitas
 
-Esta é uma versão funcional para desenvolvimento local. A publicação de produção continua dependente da validação PostGIS/Docker, Firebase real e da validação real do adaptador privado GCS e da conclusão do despacho Cloud Tasks/Cloud Run Jobs. O frontend não foi publicado isoladamente como se fosse uma plataforma completa.
+Esta é uma versão funcional para desenvolvimento local. A publicação de produção depende da configuração do alojamento, de Firebase real, domínio/HTTPS e operação/cópias de segurança. A integração PostGIS/Docker passou no GitHub Actions. A alternativa Cloud Run/GCS continua a exigir validação real do adaptador GCS e implementação do despacho Cloud Tasks/Cloud Run Jobs. O frontend não foi publicado isoladamente como se fosse uma plataforma completa.
 
 Ainda não estão concluídos: ingestão automática de arquivos SAFE, OAuth/S3 autenticado Copernicus, exportação individual de cada componente PCA, workflow completo de eliminação de conta/termos legais, limitação distribuída de pedidos/circuit breaker, testes de carga/restauro, auditoria formal de acessibilidade e testes browser E2E automáticos no CI. Os modelos de resposta JSON OpenAPI já foram definidos e os tipos TypeScript do frontend são gerados a partir deles. Faturação permanece desativada.
 

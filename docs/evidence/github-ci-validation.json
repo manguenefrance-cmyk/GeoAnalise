@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-20",
+  "repository": "https://github.com/manguenefrance-cmyk/GeoAnalise",
+  "commit": "e160ccd67ffe583f8d5a2edbdc4694ebcd16b135",
+  "workflow_run_id": 44691447342,
+  "workflow_url": "https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44691447342",
+  "conclusion": "success",
+  "python_tests_passed": 161,
+  "jobs": [
+    {
+      "name": "python",
+      "conclusion": "success"
+    },
+    {
+      "name": "postgis",
+      "conclusion": "success"
+    },
+    {
+      "name": "web",
+      "conclusion": "success"
+    },
+    {
+      "name": "production-containers",
+      "conclusion": "success"
+    }
+  ],
+  "production_containers": {
+    "build": "passed",
+    "startup": "passed",
+    "database_readiness": "passed",
+    "web_api_proxy": "passed",
+    "production_mode": "passed",
+    "missing_credentials_rejected": "passed",
+    "local_test_tokens_rejected": "passed",
+    "raster_dependency_imports": "passed"
+  },
+  "limits": {
+    "real_firebase_authentication_validated": false,
+    "public_https_certificate_validated": false,
+    "cloud_deployment": false
+  }
+}
