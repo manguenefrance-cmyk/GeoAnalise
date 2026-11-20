@@ -1,8 +1,12 @@
 FROM python:3.13-slim
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libexpat1 \
+    && rm -rf /var/lib/apt/lists/*
 COPY requirements.lock.txt ./requirements.lock.txt
 RUN pip install --no-cache-dir -r requirements.lock.txt
+RUN python -c "import rasterio, numpy, pyproj, scipy; print('Raster dependencies loaded')"
 COPY services ./services
 COPY contracts ./contracts
 COPY db ./db
