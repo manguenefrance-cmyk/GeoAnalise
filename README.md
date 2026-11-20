@@ -8,6 +8,10 @@ Aplicação WebGIS em Next.js/TypeScript, API FastAPI e processamento Rasterio/N
 
 **Estado:** versão local 0.3.0 funcional; não é uma versão SaaS certificada para produção. Consulte `MVP_RELEASE_CHECKLIST.md` e `docs/DELIVERY_REPORT.md` para evidências e limitações.
 
+## Testes sem gastos
+
+O orçamento atual é zero. Manter Firebase **Spark**, sem cartão, Cloud Billing ou Blaze. O projeto Firebase será usado para autenticação; a API/worker/PostGIS precisam de um alojamento de teste separado, ainda por adaptar e validar. O laboratório local já funciona. A instalação paga descrita no guia fica adiada para a fase comercial. Ver [passos atuais](docs/COLOCAR_ONLINE.pt.md).
+
 ## Abrir no Windows
 
 Já foram instaladas dependências neste computador. A partir desta pasta:

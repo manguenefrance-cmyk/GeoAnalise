@@ -2,15 +2,31 @@
 
 Estado: código publicado em [GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), configuração de produção preparada, **aplicação ainda não alojada online**. Não existe projeto Google Cloud/Firebase configurado nesta entrega. Não foi criado nenhum recurso pago.
 
-## O que o proprietário precisa de criar
+## Fase atual: testes com orçamento zero — 20 de novembro de 2026
+
+Decisão do proprietário: não gastar dinheiro nesta fase. Não associar cartão nem conta Cloud Billing, não ativar Blaze, não criar VM paga e não executar Terraform. A infraestrutura paga fica adiada até à decisão de comercializar.
+
+Na página Firebase apresentada:
+
+1. Clicar **Ir para o console** e depois **Criar um projeto**.
+2. Nome sugerido: **ARCAMBE GeoAnalytics**. Anotar o ID atribuído ao projeto.
+3. Para simplificar os testes, desativar Google Analytics se essa opção aparecer; não é necessário para o login.
+4. Concluir a criação e manter **Spark — gratuito**. Se aparecer uma proposta de ativar faturação/Blaze, não a ativar.
+5. Abrir Authentication → Começar e ativar **E-mail/senha**.
+
+O Spark permite começar sem dados de pagamento e inclui opções de autenticação gratuitas dentro dos limites aplicáveis. Será usado para o login. Não confundir com App Hosting: este exige Blaze. A API Python, o worker e o PostGIS não ficam alojados gratuitamente no Firebase apenas por criar este projeto.
+
+Referências oficiais: [planos Firebase](https://firebase.google.com/docs/projects/billing/firebase-pricing-plans), [App Hosting e faturação](https://firebase.google.com/docs/app-hosting/costs).
+
+Depois de criar o projeto, partilhar apenas o ID. O alojamento de teste sem custos para o processamento ainda precisa de ser escolhido, adaptado e validado; não existe URL pública funcional nesta entrega. O laboratório local continua disponível. Não comprar domínio nesta fase; usar o subdomínio gratuito do fornecedor que for escolhido.
+
+## Configuração técnica do login
 
 1. Criar um projeto na [consola Firebase](https://console.firebase.google.com/) e anotar o **ID do projeto**. Firebase e Google Cloud usam o mesmo projeto subjacente.
 2. Em Authentication → Sign-in method, ativar Email/Password e/ou Google, conforme o método de entrada pretendido. Em Settings → Authorized domains, acrescentar o domínio final da plataforma.
 3. Em Project settings → Your apps, registar uma aplicação Web. Guardar `apiKey`, `authDomain` e `projectId`. Estes são parâmetros públicos da aplicação Web; uma chave privada de conta de serviço nunca deve ir para o frontend ou GitHub.
-4. Para alojar o processamento, associar uma conta de faturação ao projeto Google Cloud e definir um orçamento com alertas. Alertas de orçamento não interrompem automaticamente o consumo. O valor mensal precisa de ser escolhido pelo proprietário antes de criar infraestrutura.
-5. Disponibilizar um domínio/subdomínio para HTTPS. O repositório GitHub guarda o código; é necessário um servidor para executar a API e processar os rasters.
 
-Partilhar na conversa apenas o ID do projeto, o domínio pretendido e o orçamento mensal. Não enviar senhas, chaves privadas nem dados de pagamento.
+Nesta fase, o orçamento é zero. Não enviar senhas, chaves privadas nem dados de pagamento. A configuração de um servidor pago não é um passo atual.
 
 ## Imagens de satélite e API
 
@@ -21,7 +37,9 @@ A API Python da ARCAMBE já acompanha o projeto. A interface comunica com `/api/
 - Landsat usa 30 m, bandas `SR_B1` a `SR_B7`, calibração do STAC e máscaras `QA_PIXEL`/`QA_RADSAT`. Estão disponíveis 19 índices; NDRE e CI_RE exigem Sentinel-2. A comparação temporal entre sensores é recusada até existir harmonização validada.
 - Os dados públicos não eliminam os custos de processamento, armazenamento e tráfego do alojamento.
 
-## Primeira instalação online
+## Instalação paga futura — adiada
+
+Esta secção é uma referência para a fase comercial e não deve ser executada como parte do teste gratuito. Só avançar depois de o proprietário decidir ativar alojamento pago.
 
 O ficheiro `infra/production/compose.yaml` define uma instalação inicial num único servidor Linux com Docker Compose: HTTPS Caddy, Next.js, FastAPI, worker contínuo e PostgreSQL/PostGIS. Apenas portas 80/443 são públicas; base de dados, API e rasters ficam em rede/volumes privados. O modo é fixado em `production`, com autenticação Firebase real. Esta opção preserva a fila durável já implementada.
 
