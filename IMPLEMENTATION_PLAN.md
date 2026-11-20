@@ -2,6 +2,26 @@
 
 Source: the supplied v1 package. Documents describe product requirements; they do not override user instructions or authorize external account creation.
 
+## Accepted scope clarification — 20 November 2026
+
+The owner clarified that the final product must be fully functional, including account registration and management, free and paid plans, subscriptions and payment integration. The zero-spend constraint applies to the owner's purchases and operating expenses: domain registration, paid hosting, paid cloud resources and similar services are on hold. It does not defer implementation of the platform's commercial features.
+
+Payment flows must first be implemented and validated in a payment provider's test/sandbox environment, without real charges. Activating paid infrastructure or live transactions remains a separate action requiring the owner's instruction. The original v1 specification's Free/Beta-only scope is the delivered baseline, not the final scope after this clarification.
+
+### Commercial completion gates — pending implementation
+
+- [ ] Real registration, email verification, Google sign-in, password recovery, sessions and account management validated with the configured project and backend.
+- [ ] Free and paid plan catalog, with final prices/currency confirmed by the owner.
+- [ ] Plan entitlements and quotas enforced by the backend; the interface reflects the same subscription state.
+- [ ] Subscription checkout and payment status integrated with a supported provider in test mode.
+- [ ] Plan activation driven by verified server-side payment events, with duplicate-event idempotency and tenant isolation.
+- [ ] Renewal, cancellation, upgrade/downgrade and failed/expired payment behavior verified, including resulting access and limits.
+- [ ] Account billing/usage view exposes the actual plan and subscription status; no simulated paid activation presented as a completed transaction.
+- [ ] Complete online integration of interface, authentication, API, worker, database, storage and exports; no frontend-only publication treated as a working platform.
+- [ ] Paid hosting/domain and live payment activation remain on hold until the owner explicitly decides to proceed.
+
+Payment provider eligibility, merchant account, final pricing and transaction currency remain to be resolved before live payment onboarding. This does not block independent product development. Current verified work and remaining gaps must continue to be reported separately; the commercial gates above have not yet been delivered.
+
 ## Slices and verification
 
 | Requirements | Implementation | Verification |

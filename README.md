@@ -12,6 +12,10 @@ Aplicação WebGIS em Next.js/TypeScript, API FastAPI e processamento Rasterio/N
 
 O orçamento atual é zero. Manter Firebase **Spark**, sem cartão, Cloud Billing ou Blaze. O projeto Firebase será usado para autenticação; a API/worker/PostGIS precisam de um alojamento de teste separado, ainda por adaptar e validar. O laboratório local já funciona. A instalação paga descrita no guia fica adiada para a fase comercial. Ver [passos atuais](docs/COLOCAR_ONLINE.pt.md).
 
+## Escopo final confirmado
+
+A plataforma final inclui criação e gestão de contas, planos gratuitos e pagos, limites por plano, assinaturas e pagamentos. A restrição de zero gastos adia compras do proprietário (domínio, alojamento pago e serviços), **não o desenvolvimento das funcionalidades comerciais**. Os pagamentos serão implementados e validados primeiro em modo de teste, sem cobranças reais. Os módulos comerciais ainda não estão concluídos; os critérios pendentes estão em `IMPLEMENTATION_PLAN.md`.
+
 ## Abrir no Windows
 
 Já foram instaladas dependências neste computador. A partir desta pasta:

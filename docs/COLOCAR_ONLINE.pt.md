@@ -6,6 +6,8 @@ Estado: código publicado em [GeoAnalise](https://github.com/manguenefrance-cmyk
 
 Decisão do proprietário: não gastar dinheiro nesta fase. Não associar cartão nem conta Cloud Billing, não ativar Blaze, não criar VM paga e não executar Terraform. A infraestrutura paga fica adiada até à decisão de comercializar.
 
+**Esclarecimento de escopo:** o proprietário quer a plataforma final funcional com contas, planos gratuitos e pagos, assinaturas e pagamentos. A suspensão refere-se aos seus gastos com domínio, infraestrutura e serviços pagos. O desenvolvimento comercial continua no escopo; as transações serão verificadas em modo de teste antes da ativação de cobranças reais. Não confundir plano pago oferecido aos clientes com plano pago de alojamento contratado pelo proprietário.
+
 Na página Firebase apresentada:
 
 1. Clicar **Ir para o console** e depois **Criar um projeto**.

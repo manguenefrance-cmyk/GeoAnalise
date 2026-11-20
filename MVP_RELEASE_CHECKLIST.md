@@ -47,3 +47,9 @@ No live cloud deployment, paid billing or production readiness is claimed. QGIS 
 - [x] Evidence: `docs/evidence/browser-validation.json`, `browser-download.json`, `workspace-desktop.jpg`, `workspace-mobile.jpg`.
 
 These are manual checks through the browser automation interface; no claim of a complete automated browser CI suite is made.
+
+## Final product scope clarification — 20 November 2026
+
+The baseline Free/Beta release is not the complete final product. Free and paid plans, backend-enforced entitlements, subscription checkout, lifecycle handling and account billing status remain required and are pending implementation. See the commercial completion gates in `IMPLEMENTATION_PLAN.md`.
+
+Only the owner's expenses for domains, paid hosting and other paid services are on hold. Commercial functionality is developed and verified with test transactions first. No live transaction or paid infrastructure activation is implied by this scope clarification.
