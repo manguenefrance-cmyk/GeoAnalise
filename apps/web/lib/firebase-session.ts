@@ -1,9 +1,17 @@
 import type { Auth } from "firebase/auth";
+import publicConfig from "./firebase-public.json";
+import {
+  isFirebaseConfigComplete,
+  selectFirebaseConfig,
+} from "./firebase-config.mjs";
 
-export const firebaseConfigured = Boolean(
-  process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
-  process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-);
+export const firebaseConfig = selectFirebaseConfig(publicConfig, {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+});
+export const firebaseConfigured = isFirebaseConfigComplete(firebaseConfig);
 let authentication: Promise<Auth> | undefined;
 
 export function firebaseAuth(): Promise<Auth> {
@@ -13,13 +21,7 @@ export function firebaseAuth(): Promise<Auth> {
     const { getApps, initializeApp } = await import("firebase/app");
     const { getAuth, setPersistence, browserSessionPersistence } =
       await import("firebase/auth");
-    const app =
-      getApps()[0] ||
-      initializeApp({
-        apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-        authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-      });
+    const app = getApps()[0] || initializeApp(firebaseConfig);
     const auth = getAuth(app);
     await setPersistence(auth, browserSessionPersistence);
     return auth;

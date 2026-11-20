@@ -27,6 +27,7 @@ export const en = {
   documentation: "API schema",
   start: "Start exploring",
   login: "Sign in",
+  googleLogin: "Continue with Google",
   register: "Create account",
   email: "Email address",
   password: "Password",
@@ -227,6 +228,7 @@ export const pt: typeof en = {
   documentation: "Esquema da API",
   start: "Começar a explorar",
   login: "Entrar",
+  googleLogin: "Continuar com Google",
   register: "Criar conta",
   email: "Endereço de email",
   password: "Palavra-passe",
@@ -438,6 +440,22 @@ export const errors: Record<string, [string, string]> = {
   ARTIFACT_EXPIRED: [
     "This product is no longer available.",
     "Este produto já não está disponível.",
+  ],
+  "auth/unauthorized-domain": [
+    "Google sign-in is not available at this address. Contact the platform administrator.",
+    "A entrada Google não está disponível neste endereço. Contacte o responsável pela plataforma.",
+  ],
+  "auth/popup-blocked": [
+    "Allow the sign-in window in your browser and try again.",
+    "Permita a janela de entrada no navegador e tente novamente.",
+  ],
+  "auth/popup-closed-by-user": [
+    "The sign-in window was closed. Try again when ready.",
+    "A janela de entrada foi fechada. Tente novamente quando quiser.",
+  ],
+  "auth/operation-not-allowed": [
+    "This sign-in method is unavailable. Use another method or contact the platform administrator.",
+    "Este método de entrada está indisponível. Use outro método ou contacte o responsável pela plataforma.",
   ],
   "auth/invalid-credential": [
     "The email or password is incorrect.",

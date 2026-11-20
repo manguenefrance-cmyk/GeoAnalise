@@ -1,6 +1,6 @@
 # Colocar ARCAMBE GeoAnalytics online
 
-Estado: código publicado em [GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), configuração de produção preparada, **aplicação ainda não alojada online**. Não existe projeto Google Cloud/Firebase configurado nesta entrega. Não foi criado nenhum recurso pago.
+Estado: código publicado em [GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), configuração de produção preparada, **aplicação ainda não alojada online**. O projeto Firebase `arcambe-geoanalytics` foi criado no plano Spark; a configuração pública da aplicação Web já está integrada. Não foi criado nenhum recurso pago.
 
 ## Fase atual: testes com orçamento zero — 20 de novembro de 2026
 
@@ -19,6 +19,16 @@ O Spark permite começar sem dados de pagamento e inclui opções de autenticaç
 Referências oficiais: [planos Firebase](https://firebase.google.com/docs/projects/billing/firebase-pricing-plans), [App Hosting e faturação](https://firebase.google.com/docs/app-hosting/costs).
 
 Depois de criar o projeto, partilhar apenas o ID. O alojamento de teste sem custos para o processamento ainda precisa de ser escolhido, adaptado e validado; não existe URL pública funcional nesta entrega. O laboratório local continua disponível. Não comprar domínio nesta fase; usar o subdomínio gratuito do fornecedor que for escolhido.
+
+## Configuração pública integrada — 20 de novembro de 2026
+
+O perfil Web fornecido pelo proprietário está em `apps/web/lib/firebase-public.json`. A interface usa esse perfil por padrão e permite substituição através das variáveis `NEXT_PUBLIC_FIREBASE_*`; uma substituição parcial é recusada para não misturar projetos. O SDK inicializa apenas Authentication. Não foram inicializados Analytics ou Cloud Storage, nem ativada faturação.
+
+A configuração pública respondeu com HTTP 200 no serviço Firebase. Os domínios autorizados incluem `localhost`, `arcambe-geoanalytics.firebaseapp.com` e `arcambe-geoanalytics.web.app`. Para teste local de Google, usar `http://localhost:3000/auth/login`; `127.0.0.1` é um domínio diferente. Quando existir um endereço de alojamento, adicioná-lo em Authentication → Settings → Authorized domains.
+
+O formulário permite e-mail/senha e Google. A entrada de utilizadores reais na plataforma inteira ainda precisa de teste: o servidor mantém verificação de revogação e necessita de credenciais administrativas protegidas no alojamento. Não enviar essas credenciais no chat nem colocá-las no GitHub. Nesta etapa foi verificada apenas a configuração pública, sem criar contas nem enviar e-mails.
+
+Referência: [configuração e chaves públicas Firebase](https://firebase.google.com/docs/projects/api-keys).
 
 ## Configuração técnica do login
 

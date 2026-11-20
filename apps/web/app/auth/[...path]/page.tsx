@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FlaskConical } from "lucide-react";
 import Brand from "@/components/Brand";
 import { useApp } from "@/lib/context";
-import { firebaseAuth } from "@/lib/firebase-session";
+import { firebaseAuth, firebaseConfigured } from "@/lib/firebase-session";
 export default function Auth() {
   const { t, mode, setToken, locale, setLocale, errorText } = useApp();
   const router = useRouter();
@@ -25,8 +25,7 @@ export default function Auth() {
     setBusy(true);
     setStatus("");
     try {
-      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
-        throw new Error(t.authMissing);
+      if (!firebaseConfigured) throw new Error(t.authMissing);
       const {
         signInWithEmailAndPassword,
         createUserWithEmailAndPassword,
@@ -55,6 +54,36 @@ export default function Auth() {
       const code = (e as { code?: string })?.code;
       setStatus(
         code ? errorText(code) : e instanceof Error ? e.message : t.error,
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+  async function googleSignIn() {
+    setBusy(true);
+    setStatus("");
+    try {
+      const { GoogleAuthProvider, signInWithPopup } =
+        await import("firebase/auth");
+      const auth = await firebaseAuth();
+      auth.languageCode = locale;
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      const credential = await signInWithPopup(auth, provider);
+      if (!credential.user.emailVerified) {
+        setStatus(t.verify);
+        return;
+      }
+      setToken(await credential.user.getIdToken());
+      router.push("/app/dashboard");
+    } catch (error) {
+      const code = (error as { code?: string })?.code;
+      setStatus(
+        code
+          ? errorText(code)
+          : error instanceof Error
+            ? error.message
+            : t.error,
       );
     } finally {
       setBusy(false);
@@ -98,6 +127,17 @@ export default function Auth() {
             {busy ? t.loading : heading}
           </button>
         </form>
+        {flow !== "reset" && (
+          <button
+            type="button"
+            className="button secondary full"
+            style={{ marginTop: 12 }}
+            disabled={busy || !firebaseConfigured}
+            onClick={() => void googleSignIn()}
+          >
+            {t.googleLogin}
+          </button>
+        )}
         <div className="auth-links">
           <Link href={flow === "register" ? "/auth/login" : "/auth/register"}>
             {flow === "register" ? t.login : t.register}

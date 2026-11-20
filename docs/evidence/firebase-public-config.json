@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-20",
+  "firebase_project_id": "arcambe-geoanalytics",
+  "project_number": "977289444532",
+  "public_configuration_http_status": 200,
+  "authorized_domains": [
+    "localhost",
+    "arcambe-geoanalytics.firebaseapp.com",
+    "arcambe-geoanalytics.web.app"
+  ],
+  "sdk_services_used": [
+    "Authentication"
+  ],
+  "analytics_initialized": false,
+  "storage_initialized": false,
+  "billing_enabled_by_this_work": false,
+  "end_to_end_user_login_verified": false,
+  "admin_credentials_provisioned": false
+}

@@ -124,3 +124,7 @@ Validação da versão 0.3.0: 161 testes Python, Ruff, TypeScript e build Next.j
 Código publicado neste repositório. Os quatro controlos do [GitHub Actions](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44691447342) passaram: 161 testes Python, frontend, PostGIS e contentores de produção. A verificação dos contentores confirmou arranque, comunicação Web/API, base de dados disponível e recusa de tokens locais de teste em modo de produção.
 
 A imagem Python inclui `libexpat1` e verifica a importação das dependências raster durante a construção. Evidência: `docs/evidence/github-ci-validation.json`. A aplicação ainda não está alojada num servidor público; faltam projeto Firebase/Google Cloud, domínio e orçamento de alojamento. O login Firebase real e o certificado HTTPS público continuam por validar.
+
+## Firebase Spark integrado
+
+O perfil público da aplicação `arcambe-geoanalytics` está incluído em `apps/web/lib/firebase-public.json`. A interface oferece e-mail/senha e Google, sem inicializar Analytics ou Storage. Variáveis de ambiente podem substituir o perfil; para trocar de projeto, fornecer API key, authDomain e projectId em conjunto. A verificação pública Firebase respondeu com HTTP 200; o login completo e a autorização na API ainda dependem da configuração segura do servidor e do alojamento gratuito. Evidência: `docs/evidence/firebase-public-config.json`.
