@@ -15,5 +15,11 @@
   "storage_initialized": false,
   "billing_enabled_by_this_work": false,
   "end_to_end_user_login_verified": false,
-  "admin_credentials_provisioned": false
+  "admin_credentials_provisioned": false,
+  "configuration_tests_passed": 4,
+  "typescript_build": "passed",
+  "github_actions": "https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44698006650",
+  "github_actions_conclusion": "success",
+  "code_commit": "fa819397d2b5b3e86a3eeae849ced87f9f090efb",
+  "login_screen_reviewed": true
 }

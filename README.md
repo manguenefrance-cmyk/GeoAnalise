@@ -128,3 +128,7 @@ A imagem Python inclui `libexpat1` e verifica a importação das dependências r
 ## Firebase Spark integrado
 
 O perfil público da aplicação `arcambe-geoanalytics` está incluído em `apps/web/lib/firebase-public.json`. A interface oferece e-mail/senha e Google, sem inicializar Analytics ou Storage. Variáveis de ambiente podem substituir o perfil; para trocar de projeto, fornecer API key, authDomain e projectId em conjunto. A verificação pública Firebase respondeu com HTTP 200; o login completo e a autorização na API ainda dependem da configuração segura do servidor e do alojamento gratuito. Evidência: `docs/evidence/firebase-public-config.json`.
+
+A integração Firebase passou nos quatro testes de configuração e nos [controlos GitHub Actions](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44698006650).
+
+![Entrada GeoAnalytics com Firebase e Google](docs/evidence/firebase-login.jpg)

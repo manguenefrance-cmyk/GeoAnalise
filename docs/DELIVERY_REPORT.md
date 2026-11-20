@@ -18,6 +18,14 @@ As secções seguintes conservam as evidências da base 0.2.0; as limitações c
 
 O primeiro teste de arranque detetou `libexpat.so.1` em falta. A imagem Python passou a instalar `libexpat1` e a verificar as importações raster durante a construção. O teste passou depois da correção. O certificado HTTPS público e o login Firebase real não foram exercitados com o domínio/projeto do proprietário; a aplicação continua sem alojamento cloud.
 
+## Firebase Spark — configuração integrada
+
+O proprietário criou o projeto `arcambe-geoanalytics`, ativou Email/Password e Google e forneceu a configuração pública da aplicação Web. Essa configuração está integrada na interface e foi aceite pelo serviço Firebase (HTTP 200). A interface inclui o botão Google, com mensagens EN/PT para erros de janela e domínio. O SDK não inicializa Analytics ou Cloud Storage.
+
+Os quatro testes de seleção/isolamento da configuração passaram, assim como TypeScript, compilação Next.js e os quatro jobs da [execução GitHub Actions 44698006650](https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/44698006650). O perfil local foi revisto no navegador. Não foram criadas contas de utilizador nem enviados e-mails durante a verificação; a entrada completa com credenciais reais e a autorização na API continuam por validar no alojamento. A verificação de revogação no servidor foi preservada. Nenhum recurso pago foi ativado.
+
+Evidência: `evidence/firebase-public-config.json` e `evidence/firebase-login.jpg`.
+
 ## O que foi desenvolvido
 
 Repositório independente, sem alterar os outros projetos da pasta de trabalho. O ZIP original foi preservado e os seus contratos/specs foram copiados para a raiz do novo projeto.
