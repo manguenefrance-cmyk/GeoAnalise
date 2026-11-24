@@ -29,6 +29,11 @@ with engine.connect() as db:
     assert db.execute(text(
         "SELECT count(*) FROM pg_indexes WHERE schemaname='arcambe' AND indexname='aoi_geom_gist'"
     )).scalar() == 1
+    function_config = db.execute(text(
+        "SELECT proconfig FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace "
+        "WHERE n.nspname='arcambe' AND p.proname='arcambe_sync_aoi'"
+    )).scalar()
+    assert any(value.startswith("search_path=pg_catalog, arcambe,") for value in function_config)
     for role in ("anon", "authenticated"):
         assert not db.execute(text(
             "SELECT has_schema_privilege(:role, 'arcambe', 'USAGE')"

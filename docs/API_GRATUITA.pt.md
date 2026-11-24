@@ -15,14 +15,16 @@ Referências oficiais: [Render Free](https://render.com/docs/free), [Supabase pr
 
 ## 1. Preparar o Supabase Free
 
-O [projeto gratuito](https://supabase.com/dashboard/project/bmoabalkqotxrswcraby) já está criado na região `eu-central-1`. A organização confirmou plano Free e custo indicado de 0 por mês para o projeto. As tabelas da aplicação ainda não foram criadas; o arranque da API executará as migrações. Guardar a senha da base de dados num gestor de senhas; defini-la/redefini-la pela consola se necessário. Não a enviar no chat.
+O [projeto gratuito](https://supabase.com/dashboard/project/bmoabalkqotxrswcraby) já está criado na região `eu-central-1`. A organização confirmou plano Free e custo indicado de 0 por mês para o projeto. As 11 tabelas da aplicação já foram criadas no schema privado `arcambe`, com revisão Alembic `0003`; o arranque da API verifica/aplica apenas migrações pendentes. Guardar a senha da base de dados num gestor de senhas; defini-la/redefini-la pela consola se necessário. Não a enviar no chat.
 
 1. Em Storage, criar um bucket **privado**, com o ID `arcambe-artifacts`. Não ativar acesso público nem criar políticas públicas de leitura/escrita.
 2. Obter a ligação PostgreSQL pelo **Session pooler**, porta 5432. Esta opção evita a exigência de IPv6 da ligação direta; não usar o pooler de transações na porta 6543 neste perfil.
 3. Usar o formato `postgresql+psycopg://...` e acrescentar `sslmode=require` à ligação. Codificar caracteres especiais da senha na URL. A ligação vai apenas para `DATABASE_URL` no servidor Render.
 4. O endereço é `https://bmoabalkqotxrswcraby.supabase.co` e já está no Blueprint. Criar uma chave administrativa **secret** (`sb_secret_...`) para o backend; o adaptador envia-a apenas em `apikey`, sem a confundir com um JWT de utilizador. Também aceita a chave legada JWT `service_role`, com Bearer. Não usar `anon`/publishable. Guardar apenas no Render, nunca no GitHub, interface, captura ou chat.
 
-O arranque executa as migrações numa área privada `arcambe`, revoga privilégios de `PUBLIC`, `anon` e `authenticated` e ativa RLS nas tabelas. Não acrescentar esse schema aos schemas expostos pela Data API. A ligação do backend deve ser o proprietário dessas tabelas: o servidor mantém os controlos Firebase e de organização. A API REST pública do Supabase não é utilizada para ler as tabelas da aplicação.
+As migrações usam uma área privada `arcambe`, revogam privilégios de `PUBLIC`, `anon` e `authenticated` e ativam RLS nas tabelas. Não acrescentar esse schema aos schemas expostos pela Data API. A ligação do backend deve ser o proprietário dessas tabelas: o servidor mantém os controlos Firebase e de organização. A API REST pública do Supabase não é utilizada para ler as tabelas da aplicação.
+
+A validação real confirmou o índice espacial, a geração de MultiPolygon/SRID 4326 pelo trigger e o bloqueio dos papéis de navegador. As linhas temporárias do teste foram revertidas: continuam zero utilizadores, projetos e áreas da aplicação. A função tem um `search_path` fixo. O advisor conserva 11 mensagens **informativas** de RLS sem políticas: é o comportamento intencional de negação por defeito neste schema privado, usado apenas pelo backend proprietário. Não criar políticas amplas para silenciar esses avisos. Referência: [RLS sem políticas](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy).
 
 Referências: [ligação PostgreSQL](https://supabase.com/docs/guides/database/connecting-to-postgres), [PostGIS](https://supabase.com/docs/guides/database/extensions/postgis), [buckets privados](https://supabase.com/docs/guides/storage/buckets/fundamentals).
 
