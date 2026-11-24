@@ -26,7 +26,10 @@ class SupabaseStorage:
         self.origin = f"https://{parsed.netloc}"
         self.host, self.bucket = parsed.netloc, bucket
         self.client = client or httpx.Client(timeout=120, follow_redirects=False)
-        self.headers = {"apikey": service_key, "Authorization": f"Bearer {service_key}"}
+        self.headers = {"apikey": service_key}
+        # Opaque secret keys are API keys, not JWTs. The gateway supplies the server role.
+        if not service_key.startswith("sb_secret_"):
+            self.headers["Authorization"] = f"Bearer {service_key}"
 
     def request(self, method, path, **kwargs):
         try:

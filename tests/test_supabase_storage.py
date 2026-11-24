@@ -76,6 +76,19 @@ def test_remote_objects_survive_store_restart_and_upload_retry(tmp_path):
         restarted.preview(location)
 
 
+def test_modern_secret_key_is_not_sent_as_a_user_jwt():
+    def handler(request):
+        assert request.headers["apikey"] == "sb_secret_server-only"
+        assert "authorization" not in request.headers
+        return httpx.Response(200, json={"id": BUCKET, "public": False})
+
+    store = SupabaseStorage(
+        ORIGIN, "sb_secret_server-only", BUCKET,
+        httpx.Client(transport=httpx.MockTransport(handler)),
+    )
+    store.private_bucket()
+
+
 def test_supabase_never_overwrites_conflicting_content(tmp_path):
     server = StorageServer()
     store = server.store()

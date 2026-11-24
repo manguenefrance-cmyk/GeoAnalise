@@ -10,7 +10,7 @@ Aplicação WebGIS em Next.js/TypeScript, API FastAPI e processamento Rasterio/N
 
 ## Testes sem gastos
 
-O orçamento atual é zero. Manter Firebase **Spark**, sem cartão, Cloud Billing ou Blaze. A interface usa Vercel **Hobby**. Foi preparado um perfil de teste da API no Render **Free**, com PostgreSQL/PostGIS e armazenamento privado no Supabase **Free**; as contas e credenciais de alojamento ainda precisam de ser ligadas e a integração real validada. Ver [passos atuais](docs/COLOCAR_ONLINE.pt.md) e [configuração da API gratuita](docs/API_GRATUITA.pt.md). A instalação paga fica adiada.
+O orçamento atual é zero. Manter Firebase **Spark**, sem cartão, Cloud Billing ou Blaze. A interface usa Vercel **Hobby**. Foi preparado um perfil de teste da API no Render **Free**, com PostgreSQL/PostGIS e armazenamento privado no Supabase **Free**. As integrações estão ligadas e o projeto Supabase já foi criado; as credenciais privadas e a implantação da API ainda precisam de configuração e validação. Ver [passos atuais](docs/COLOCAR_ONLINE.pt.md) e [configuração da API gratuita](docs/API_GRATUITA.pt.md). A instalação paga fica adiada.
 
 ## Escopo final confirmado
 

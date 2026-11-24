@@ -70,4 +70,5 @@ Payment provider eligibility, merchant account, final pricing and transaction cu
 - Prepared `render.yaml` with one explicitly Free Docker web service, production authentication, embedded durable-queue consumer and conservative analysis limits. No paid resource has been created.
 - Implemented private Supabase artifact storage, immutable hash-addressed uploads with retry verification, bounded previews and short-lived authorized download redirects. Scratch products are removed after remote publication.
 - Prepared a dedicated `arcambe` PostgreSQL schema, revoked browser/public grants and enabled RLS, with a new PostGIS CI check for browser-role denial.
-- Real provider accounts/secrets, Firebase authorized domain, hosted deployment, memory measurements and complete user-flow validation remain pending. This does not complete the commercial gates above.
+- Supabase and Render integrations are connected. A new Supabase project `bmoabalkqotxrswcraby` was created after verifying the organization Free plan and a zero monthly project quote. The Render Blueprint `exs-dc2q9hm7bikc739du5ng` is planned but not approved/applied; no Render service is deployed yet.
+- Private provider secrets, Firebase authorized domain, hosted deployment, memory measurements and complete user-flow validation remain pending. This does not complete the commercial gates above.

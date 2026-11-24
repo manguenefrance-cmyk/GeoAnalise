@@ -2,7 +2,7 @@
 
 Estado em 24 de novembro de 2026: interface publicada em [geo-analise.vercel.app](https://geo-analise.vercel.app), no plano Vercel Hobby. A API, a base de dados e o processamento ainda não estão ligados à interface publicada. O projeto Firebase `arcambe-geoanalytics` está no plano Spark; a configuração pública está integrada. Não foi criado nenhum recurso pago.
 
-A próxima implantação tem código preparado para Render Free e Supabase Free. Seguir [API gratuita](API_GRATUITA.pt.md) para os segredos, schema privado, armazenamento de resultados e verificação completa. As contas externas ainda precisam de ser ligadas; este estado não é uma implantação da API concluída.
+A próxima implantação tem código preparado para Render Free e Supabase Free. O projeto Supabase `bmoabalkqotxrswcraby` foi criado no plano Free; o Render tem um Blueprint preparado, ainda sem aplicação do plano. Seguir [API gratuita](API_GRATUITA.pt.md) para os segredos, schema privado, armazenamento de resultados e verificação completa. As duas integrações já estão ligadas, mas os segredos ainda precisam de ser configurados nas consolas; este estado não é uma implantação da API concluída.
 
 ## Fase atual: testes com orçamento zero — 20 de novembro de 2026
 

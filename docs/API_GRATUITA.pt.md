@@ -1,6 +1,6 @@
 # API de teste sem custos — Render e Supabase
 
-Preparado em 24 de novembro de 2026. A interface está em https://geo-analise.vercel.app. Este documento prepara a próxima implantação: **a API ainda não foi publicada, nem existe validação real da integração destes fornecedores**. Não criar recursos pagos nem introduzir cartão para seguir este percurso. Se uma conta exigir pagamento, parar a configuração dessa conta.
+Preparado em 24 de novembro de 2026. A interface está em https://geo-analise.vercel.app. O projeto Supabase Free **ARCAMBE GeoAnalytics** (`bmoabalkqotxrswcraby`) já foi criado e está saudável. O plano Render `exs-dc2q9hm7bikc739du5ng` está preparado, ainda sem aprovação/implantação. **A API ainda não foi publicada, nem existe validação real da integração completa destes fornecedores**. Não criar recursos pagos nem introduzir cartão para seguir este percurso.
 
 ## Componentes
 
@@ -15,12 +15,12 @@ Referências oficiais: [Render Free](https://render.com/docs/free), [Supabase pr
 
 ## 1. Preparar o Supabase Free
 
-Criar uma conta e um projeto gratuito, preferencialmente numa região europeia próxima da API. Guardar a senha da base de dados num gestor de senhas. Não a enviar no chat.
+O [projeto gratuito](https://supabase.com/dashboard/project/bmoabalkqotxrswcraby) já está criado na região `eu-central-1`. A organização confirmou plano Free e custo indicado de 0 por mês para o projeto. As tabelas da aplicação ainda não foram criadas; o arranque da API executará as migrações. Guardar a senha da base de dados num gestor de senhas; defini-la/redefini-la pela consola se necessário. Não a enviar no chat.
 
 1. Em Storage, criar um bucket **privado**, com o ID `arcambe-artifacts`. Não ativar acesso público nem criar políticas públicas de leitura/escrita.
 2. Obter a ligação PostgreSQL pelo **Session pooler**, porta 5432. Esta opção evita a exigência de IPv6 da ligação direta; não usar o pooler de transações na porta 6543 neste perfil.
 3. Usar o formato `postgresql+psycopg://...` e acrescentar `sslmode=require` à ligação. Codificar caracteres especiais da senha na URL. A ligação vai apenas para `DATABASE_URL` no servidor Render.
-4. Obter o endereço `https://<project-ref>.supabase.co` e a chave administrativa JWT **service_role**. O adaptador REST usa essa chave legada como `apikey` e Bearer; não usar a chave `anon`/publishable. Guardar apenas no Render, nunca no GitHub, interface, captura ou chat.
+4. O endereço é `https://bmoabalkqotxrswcraby.supabase.co` e já está no Blueprint. Criar uma chave administrativa **secret** (`sb_secret_...`) para o backend; o adaptador envia-a apenas em `apikey`, sem a confundir com um JWT de utilizador. Também aceita a chave legada JWT `service_role`, com Bearer. Não usar `anon`/publishable. Guardar apenas no Render, nunca no GitHub, interface, captura ou chat.
 
 O arranque executa as migrações numa área privada `arcambe`, revoga privilégios de `PUBLIC`, `anon` e `authenticated` e ativa RLS nas tabelas. Não acrescentar esse schema aos schemas expostos pela Data API. A ligação do backend deve ser o proprietário dessas tabelas: o servidor mantém os controlos Firebase e de organização. A API REST pública do Supabase não é utilizada para ler as tabelas da aplicação.
 
@@ -43,8 +43,8 @@ Importar o repositório original `manguenefrance-cmyk/GeoAnalise` como Blueprint
 | Campo | Origem |
 |---|---|
 | `DATABASE_URL` | Session pooler Supabase, `postgresql+psycopg`, `sslmode=require` |
-| `SUPABASE_URL` | URL do projeto Supabase |
-| `SUPABASE_SERVICE_KEY` | JWT `service_role`, só no servidor |
+| `SUPABASE_URL` | Já configurado: `https://bmoabalkqotxrswcraby.supabase.co` |
+| `SUPABASE_SERVICE_KEY` | Chave secret (ou JWT legado `service_role`), só no servidor |
 | Ficheiro secreto `firebase-admin.json` | Credencial Firebase com permissões mínimas |
 
 O Blueprint gera `DOWNLOAD_SECRET`. Mantém `APP_ENV=production`, `DATABASE_SCHEMA=arcambe`, `WORKER_EMBEDDED=true` e armazenamento Supabase. O limite é de 10 km² por AOI, 250 mil pixels, 50 MB por artefacto, três créditos diários e um trabalho por organização em simultâneo. O consumidor único processa um trabalho de cada vez. Estes valores são conservadores para teste; **o consumo real de memória no Render Free ainda deve ser medido**.
