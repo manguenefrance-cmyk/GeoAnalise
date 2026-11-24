@@ -1,0 +1,98 @@
+{
+  "date": "2026-11-24",
+  "source_commit": "fb833cf128b479aa4e7d40787d7e22728a8f9f5c",
+  "frontend": {
+    "url": "https://geo-analise.vercel.app",
+    "http_checks": {
+      "/": 200,
+      "/auth/login": 200,
+      "/api/healthz": 404
+    },
+    "backend_connected": false
+  },
+  "firebase": {
+    "project_id": "arcambe-geoanalytics",
+    "public_config_http_status": 200,
+    "authorized_domains": [
+      "localhost",
+      "arcambe-geoanalytics.firebaseapp.com",
+      "arcambe-geoanalytics.web.app"
+    ],
+    "vercel_domain_authorized": false,
+    "backend_admin_credentials_configured": false,
+    "real_user_end_to_end_verified": false
+  },
+  "supabase": {
+    "project_id": "bmoabalkqotxrswcraby",
+    "url": "https://bmoabalkqotxrswcraby.supabase.co",
+    "region": "eu-central-1",
+    "status": "ACTIVE_HEALTHY",
+    "organization_plan": "free",
+    "new_project_quote": {
+      "amount": 0,
+      "recurrence": "monthly"
+    },
+    "application_tables_created": false,
+    "artifact_bucket_created": false,
+    "security_advisors": []
+  },
+  "render": {
+    "workspace_id": "tea-d8o8nfcm0tmc73cf764g",
+    "blueprint_id": "exs-dc2q9hm7bikc739du5ng",
+    "planned_sync_id": "exe-dc2qajjm8hqs73899u1g",
+    "dashboard_url": "https://dashboard.render.com/blueprint/exs-dc2q9hm7bikc739du5ng/sync/exe-dc2qajjm8hqs73899u1g",
+    "planning_outcome": "planned",
+    "planned_resources": [
+      {
+        "name": "arcambe-api-ux2b",
+        "type": "web",
+        "plan": "free",
+        "region": "frankfurt"
+      }
+    ],
+    "required_private_env": [
+      "DATABASE_URL",
+      "SUPABASE_SERVICE_KEY"
+    ],
+    "required_secret_file": "firebase-admin.json",
+    "plan_approved": false,
+    "service_created": false,
+    "api_deployed": false
+  },
+  "verification": {
+    "ci_run_id": 45419387073,
+    "ci_url": "https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/45419387073",
+    "python_tests_passed": 183,
+    "checks": [
+      {
+        "name": "production-containers",
+        "conclusion": "success"
+      },
+      {
+        "name": "python",
+        "conclusion": "success"
+      },
+      {
+        "name": "web",
+        "conclusion": "success"
+      },
+      {
+        "name": "postgis",
+        "conclusion": "success"
+      }
+    ],
+    "storage_tests_use_mock_http": true,
+    "real_supabase_storage_roundtrip": false,
+    "free_host_memory_measured": false
+  },
+  "remaining": [
+    "Create private artifact bucket",
+    "Set private server credentials in provider consoles",
+    "Authorize Vercel domain in Firebase",
+    "Review and approve Render plan after secret configuration",
+    "Set Vercel API_URL and redeploy",
+    "Validate real accounts, Sentinel/Landsat analysis, export and restart persistence",
+    "Implement subscription and sandbox payment completion gates"
+  ],
+  "owner_paid_resources_created": false
+}
