@@ -8,6 +8,7 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     Integer,
+    MetaData,
     String,
     UniqueConstraint,
     Uuid,
@@ -62,7 +63,10 @@ engine = create_engine(
     settings.database_url,
     connect_args={"check_same_thread": False, "timeout": 30}
     if settings.database_url.startswith("sqlite")
-    else {},
+    else (
+        {"options": f"-csearch_path={settings.database_schema},public,extensions"}
+        if settings.database_schema else {}
+    ),
     pool_pre_ping=True,
 )
 Session = sessionmaker(engine, expire_on_commit=False)
@@ -76,7 +80,7 @@ if settings.database_url.startswith("sqlite"):
 
 
 class Base(DeclarativeBase):
-    pass
+    metadata = MetaData(schema=settings.database_schema or None)
 
 
 class Organization(Base):

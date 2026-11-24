@@ -157,7 +157,7 @@ def read_scene(item, geometry, selected, params=None, sample=False):
         GDAL_HTTP_MAX_RETRY="2",
         GDAL_HTTP_MULTIRANGE="YES",
         GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR",
-        GDAL_CACHEMAX=64_000_000,
+        GDAL_CACHEMAX=settings.gdal_cachemax_bytes,
         CPL_VSIL_CURL_ALLOWED_EXTENSIONS=".tif,.tiff,.jp2",
         GDAL_HTTP_MAX_REDIR="0",
     ):

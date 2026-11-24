@@ -2,6 +2,7 @@
 
 import hashlib
 import logging
+import shutil
 import time
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
@@ -274,6 +275,15 @@ def run_job(job_id):
                                 job_id,
                                 type(cleanup_error).__name__,
                             )
+            # Remote storage is authoritative; scratch products must not fill ephemeral disks.
+            if settings.storage_backend != "local":
+                root = (settings.data_dir / "artifacts").resolve()
+                scratch = (root / analysis.id).resolve()
+                if scratch.parent == root and scratch.is_dir():
+                    try:
+                        shutil.rmtree(scratch)
+                    except OSError:
+                        logger.warning("scratch_cleanup_failed analysis_id=%s", analysis.id)
 
 
 def work_once():

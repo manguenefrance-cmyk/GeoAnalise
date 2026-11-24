@@ -172,7 +172,20 @@ def _gcs(bucket, signer):
     return GCSStorage(bucket, signer)
 
 
+@lru_cache(maxsize=4)
+def _supabase(url, key, bucket):
+    from .supabase_storage import SupabaseStorage
+
+    return SupabaseStorage(url, key, bucket)
+
+
 def storage_for(key=None):
+    if (key is not None and key.startswith("supabase://")) or (
+        key is None and settings.storage_backend == "supabase"
+    ):
+        return _supabase(
+            settings.supabase_url, settings.supabase_service_key.get_secret_value(), settings.supabase_bucket
+        )
     if key is not None:
         if key.startswith("gs://"):
             if not settings.gcs_bucket:

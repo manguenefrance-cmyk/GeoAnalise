@@ -49,7 +49,7 @@ Payment provider eligibility, merchant account, final pricing and transaction cu
 ## External dependencies and decisions
 
 - Docker is absent on this host. Provide Compose; validate local SQLite fallback separately. PostgreSQL/PostGIS remains the deployment database.
-- Firebase, GCP storage, Cloud Tasks, production domains and billing credentials have not been supplied. Never label them validated.
+- Firebase public configuration has been supplied and the frontend is deployed on Vercel Hobby. Backend administrative credentials, hosted database/storage and processing still require setup and live validation. GCP/Cloud Tasks and billing remain unprovisioned.
 - Explicit `APP_ENV=test` enables deterministic synthetic **test raster** workflows. Production forbids test bearer tokens and fixture endpoints.
 - Sites hosting uses Workers, which cannot run the specified Python/GDAL/PostGIS system. Develop this repository locally; do not publish an isolated frontend as a functioning deployment. Deployment requires the API/worker/database architecture.
 - Original remote-sensing book is not present in the ZIP; do not claim to have inspected it or redistribute it.
@@ -63,3 +63,11 @@ Payment provider eligibility, merchant account, final pricing and transaction cu
 - A separate daily attempt ceiling prevents refunded jobs from enabling unlimited processing.
 - Independent headless QGIS 3.44.8 comparison passes for NDVI, NDWI_MCF, NDBI and EVI after explicit grid alignment.
 - 134 Python tests pass. Remaining production gates are listed separately in the release checklist.
+
+## Online continuation — 24 November 2026
+
+- Frontend deployed by the owner at https://geo-analise.vercel.app; HTTP 200/title verified.
+- Prepared `render.yaml` with one explicitly Free Docker web service, production authentication, embedded durable-queue consumer and conservative analysis limits. No paid resource has been created.
+- Implemented private Supabase artifact storage, immutable hash-addressed uploads with retry verification, bounded previews and short-lived authorized download redirects. Scratch products are removed after remote publication.
+- Prepared a dedicated `arcambe` PostgreSQL schema, revoked browser/public grants and enabled RLS, with a new PostGIS CI check for browser-role denial.
+- Real provider accounts/secrets, Firebase authorized domain, hosted deployment, memory measurements and complete user-flow validation remain pending. This does not complete the commercial gates above.

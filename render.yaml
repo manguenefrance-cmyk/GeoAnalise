@@ -1,0 +1,62 @@
+# Free test profile only. No disks, paid workers or provider-managed databases.
+services:
+  - type: web
+    name: arcambe-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./infra/python.Dockerfile
+    dockerContext: .
+    dockerCommand: python -m services.api.hosted
+    healthCheckPath: /readyz
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: FIREBASE_PROJECT_ID
+        value: arcambe-geoanalytics
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/secrets/firebase-admin.json
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SCHEMA
+        value: arcambe
+      - key: STORAGE_BACKEND
+        value: supabase
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: arcambe-artifacts
+      - key: WORKER_EMBEDDED
+        value: 'true'
+      - key: DOWNLOAD_SECRET
+        generateValue: true
+      - key: DATA_DIR
+        value: /app/data
+      - key: CORS_ORIGINS
+        value: https://geo-analise.vercel.app
+      - key: STAC_URL
+        value: https://earth-search.aws.element84.com/v1
+      - key: STAC_COLLECTION
+        value: sentinel-2-c1-l2a
+      - key: MAX_AOI_KM2
+        value: '10'
+      - key: MAX_PIXELS
+        value: '250000'
+      - key: MAX_ARTIFACT_BYTES
+        value: '50000000'
+      - key: DAILY_JOB_LIMIT
+        value: '3'
+      - key: DAILY_ATTEMPT_LIMIT
+        value: '10'
+      - key: CONCURRENT_JOB_LIMIT
+        value: '1'
+      - key: GDAL_CACHEMAX
+        value: '32'
+      - key: GDAL_CACHEMAX_BYTES
+        value: '32000000'
+      - key: OPENBLAS_NUM_THREADS
+        value: '1'
+      - key: OMP_NUM_THREADS
+        value: '1'

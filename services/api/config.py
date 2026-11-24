@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Literal
 
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -8,6 +9,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     app_env: str = "production"
     database_url: str = "sqlite:///./data/arcambe.db"
+    database_schema: str = Field(default="", pattern=r"^([a-z][a-z0-9_]{0,40})?$")
+    worker_embedded: bool = False
     data_dir: Path = Path("data")
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
     firebase_project_id: str = ""
@@ -21,8 +24,12 @@ class Settings(BaseSettings):
     concurrent_job_limit: int = 1
     max_aoi_km2: float = 100
     max_pixels: int = 2_000_000
+    gdal_cachemax_bytes: int = Field(default=64_000_000, ge=1_000_000, le=256_000_000)
     download_secret: str = ""
-    storage_backend: Literal["local", "gcs"] = "local"
+    storage_backend: Literal["local", "gcs", "supabase"] = "local"
+    supabase_url: str = ""
+    supabase_service_key: SecretStr = SecretStr("")
+    supabase_bucket: str = "arcambe-artifacts"
     gcs_bucket: str = ""
     gcs_signer_email: str = ""
     max_artifact_bytes: int = 150_000_000
@@ -38,6 +45,10 @@ class Settings(BaseSettings):
         self.data_dir.mkdir(parents=True, exist_ok=True)
         if self.storage_backend == "gcs" and not self.gcs_bucket:
             raise RuntimeError("GCS storage requires GCS_BUCKET")
+        if self.storage_backend == "supabase" and (
+            not self.supabase_url or not self.supabase_service_key.get_secret_value()
+        ):
+            raise RuntimeError("Supabase storage requires its URL and a server-only service key")
 
 
 settings = Settings()

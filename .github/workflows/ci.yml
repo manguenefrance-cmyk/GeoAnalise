@@ -48,6 +48,8 @@ jobs:
         env: {APP_ENV: test, DATABASE_URL: 'postgresql+psycopg://arcambe:test-only@localhost:5432/arcambe'}
       - run: python scripts/postgis-smoke.py
         env: {APP_ENV: test, DATABASE_URL: 'postgresql+psycopg://arcambe:test-only@localhost:5432/arcambe'}
+      - run: python scripts/postgis-hosted-smoke.py
+        env: {APP_ENV: test, DATABASE_SCHEMA: arcambe, DATABASE_URL: 'postgresql+psycopg://arcambe:test-only@localhost:5432/arcambe'}
   production-containers:
     runs-on: ubuntu-latest
     env:

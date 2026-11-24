@@ -1,6 +1,8 @@
 # Colocar ARCAMBE GeoAnalytics online
 
-Estado: código publicado em [GeoAnalise](https://github.com/manguenefrance-cmyk/GeoAnalise), configuração de produção preparada, **aplicação ainda não alojada online**. O projeto Firebase `arcambe-geoanalytics` foi criado no plano Spark; a configuração pública da aplicação Web já está integrada. Não foi criado nenhum recurso pago.
+Estado em 24 de novembro de 2026: interface publicada em [geo-analise.vercel.app](https://geo-analise.vercel.app), no plano Vercel Hobby. A API, a base de dados e o processamento ainda não estão ligados à interface publicada. O projeto Firebase `arcambe-geoanalytics` está no plano Spark; a configuração pública está integrada. Não foi criado nenhum recurso pago.
+
+A próxima implantação tem código preparado para Render Free e Supabase Free. Seguir [API gratuita](API_GRATUITA.pt.md) para os segredos, schema privado, armazenamento de resultados e verificação completa. As contas externas ainda precisam de ser ligadas; este estado não é uma implantação da API concluída.
 
 ## Fase atual: testes com orçamento zero — 20 de novembro de 2026
 
@@ -20,7 +22,7 @@ O Spark permite começar sem dados de pagamento e inclui opções de autenticaç
 
 Referências oficiais: [planos Firebase](https://firebase.google.com/docs/projects/billing/firebase-pricing-plans), [App Hosting e faturação](https://firebase.google.com/docs/app-hosting/costs).
 
-Depois de criar o projeto, partilhar apenas o ID. O alojamento de teste sem custos para o processamento ainda precisa de ser escolhido, adaptado e validado; não existe URL pública funcional nesta entrega. O laboratório local continua disponível. Não comprar domínio nesta fase; usar o subdomínio gratuito do fornecedor que for escolhido.
+O projeto Firebase já foi criado e o proprietário publicou a interface na Vercel. O alojamento de teste da API e do processamento ainda precisa de ser configurado e validado. O laboratório local continua disponível. Não comprar domínio nesta fase; usar os subdomínios gratuitos dos fornecedores.
 
 ## Configuração pública integrada — 20 de novembro de 2026
 

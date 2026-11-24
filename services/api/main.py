@@ -4,6 +4,7 @@ import json
 import logging
 import secrets
 import time
+import asyncio
 from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -48,6 +49,7 @@ from .geometry import read_shapefile_zip, validate_aoi
 from .jobs import locked, settle
 from .schemas import AnalysisCreate, AreaCreate, ProfilePatch, ProjectCreate, ProjectPatch, SceneSearch
 from .storage import GCSStorage, StorageError, storage_for
+from .supabase_storage import SupabaseStorage
 from .responses import DeletionRequestView, DashboardView
 from .responses import (
     AnalysisView,
@@ -75,7 +77,17 @@ async def lifespan(app):
     settings.validate_runtime()
     if settings.app_env == "test":
         Base.metadata.create_all(engine)
-    yield
+    worker = None
+    if settings.worker_embedded:
+        from .embedded_worker import EmbeddedWorker
+
+        worker = EmbeddedWorker()
+        worker.start()
+    try:
+        yield
+    finally:
+        if worker:
+            await asyncio.to_thread(worker.stop)
 
 
 app = FastAPI(
@@ -866,7 +878,7 @@ def signed_download(artifact_id: UUID, expires: int, signature: str, db=Depends(
     if db.get(Project, analysis.project_id).status == "deleted":
         raise HTTPException(404, "RESOURCE_NOT_FOUND")
     store = storage_for(artifact.storage_key)
-    if isinstance(store, GCSStorage):
+    if isinstance(store, (GCSStorage, SupabaseStorage)):
         ttl = int(expires - time.time())
         if ttl < 1:
             raise HTTPException(403, "DOWNLOAD_EXPIRED_OR_INVALID")

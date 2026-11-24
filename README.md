@@ -6,11 +6,11 @@ Repositório de desenvolvimento: [manguenefrance-cmyk/GeoAnalise](https://github
 
 Aplicação WebGIS em Next.js/TypeScript, API FastAPI e processamento Rasterio/NumPy. Implementação iniciada a partir do pacote de especificações v1 de 17 de novembro de 2026. O original está preservado em `ARCAMBE_GeoAnalytics_Codex/`.
 
-**Estado:** versão local 0.3.0 funcional; não é uma versão SaaS certificada para produção. Consulte `MVP_RELEASE_CHECKLIST.md` e `docs/DELIVERY_REPORT.md` para evidências e limitações.
+**Estado:** a interface está publicada em [geo-analise.vercel.app](https://geo-analise.vercel.app). A API, o processamento e a base de dados ainda não estão ligados a essa publicação. A versão local 0.3.0 funciona; os módulos comerciais ainda não estão completos. Consulte `MVP_RELEASE_CHECKLIST.md` e `docs/DELIVERY_REPORT.md` para evidências e limitações.
 
 ## Testes sem gastos
 
-O orçamento atual é zero. Manter Firebase **Spark**, sem cartão, Cloud Billing ou Blaze. O projeto Firebase será usado para autenticação; a API/worker/PostGIS precisam de um alojamento de teste separado, ainda por adaptar e validar. O laboratório local já funciona. A instalação paga descrita no guia fica adiada para a fase comercial. Ver [passos atuais](docs/COLOCAR_ONLINE.pt.md).
+O orçamento atual é zero. Manter Firebase **Spark**, sem cartão, Cloud Billing ou Blaze. A interface usa Vercel **Hobby**. Foi preparado um perfil de teste da API no Render **Free**, com PostgreSQL/PostGIS e armazenamento privado no Supabase **Free**; as contas e credenciais de alojamento ainda precisam de ser ligadas e a integração real validada. Ver [passos atuais](docs/COLOCAR_ONLINE.pt.md) e [configuração da API gratuita](docs/API_GRATUITA.pt.md). A instalação paga fica adiada.
 
 ## Escopo final confirmado
 
