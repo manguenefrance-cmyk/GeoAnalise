@@ -1,6 +1,6 @@
 {
   "date": "2026-11-24",
-  "source_commit": "fb833cf128b479aa4e7d40787d7e22728a8f9f5c",
+  "source_commit": "aefed91087f06c4889e4d66dd6316e28adadeb92",
   "frontend": {
     "url": "https://geo-analise.vercel.app",
     "http_checks": {
@@ -32,15 +32,39 @@
       "amount": 0,
       "recurrence": "monthly"
     },
-    "application_tables_created": false,
+    "application_tables_created": true,
     "artifact_bucket_created": false,
-    "security_advisors": []
+    "security_advisors": [
+      {
+        "name": "rls_enabled_no_policy",
+        "level": "INFO",
+        "count": 11,
+        "expected": true,
+        "reason": "Private backend-only tables deliberately deny browser access and have no Supabase user policies",
+        "remediation_reference": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+      }
+    ],
+    "application_table_count": 11,
+    "alembic_revision": "0003",
+    "spatial_index_verified": true,
+    "aoi_trigger_live_verified": true,
+    "temporary_validation_rows_rolled_back": true,
+    "projects_after_verification": 0,
+    "areas_after_verification": 0,
+    "anon_schema_access": false,
+    "browser_schema_access": false,
+    "public_rest_probe": {
+      "status": 406,
+      "code": "PGRST106",
+      "message": "Invalid schema: arcambe"
+    },
+    "resolved_advisor": "function_search_path_mutable"
   },
   "render": {
     "workspace_id": "tea-d8o8nfcm0tmc73cf764g",
     "blueprint_id": "exs-dc2q9hm7bikc739du5ng",
-    "planned_sync_id": "exe-dc2qajjm8hqs73899u1g",
-    "dashboard_url": "https://dashboard.render.com/blueprint/exs-dc2q9hm7bikc739du5ng/sync/exe-dc2qajjm8hqs73899u1g",
+    "planned_sync_id": "exe-dc2qesivcj2c73ao9r5g",
+    "dashboard_url": "https://dashboard.render.com/blueprint/exs-dc2q9hm7bikc739du5ng/sync/exe-dc2qesivcj2c73ao9r5g",
     "planning_outcome": "planned",
     "planned_resources": [
       {
@@ -60,14 +84,10 @@
     "api_deployed": false
   },
   "verification": {
-    "ci_run_id": 45419387073,
-    "ci_url": "https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/45419387073",
+    "ci_run_id": 45421022570,
+    "ci_url": "https://github.com/manguenefrance-cmyk/GeoAnalise/actions/runs/45421022570",
     "python_tests_passed": 183,
     "checks": [
-      {
-        "name": "production-containers",
-        "conclusion": "success"
-      },
       {
         "name": "python",
         "conclusion": "success"
@@ -78,6 +98,10 @@
       },
       {
         "name": "postgis",
+        "conclusion": "success"
+      },
+      {
+        "name": "production-containers",
         "conclusion": "success"
       }
     ],
